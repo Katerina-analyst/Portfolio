@@ -1,6 +1,7 @@
 # Сценарии использования
 
-- [Диаграмма прецедентов](./use-cases-diagram.md)
+- [Диаграмма прецедентов](./use-cases-diagram.png)
+- [Исходный файл диаграммы прецедентов](./use-case-diagram.drawio)
 - [UC-01. Онлайн-запись клиента на процедуру без регистрации](./UC-01.booking.md)
 - [UC-02. Авторизация мастера](./UC-02.master-authorization.md)
 - [UC-03. Управление процедурами](./UC-03.procedures-management.md)
