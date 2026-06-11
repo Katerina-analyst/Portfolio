@@ -2,7 +2,7 @@
 
 User Stories дополнительно оформлены в WEEEK в виде доски и сгруппированы по функциональным блокам MVP.
 
-> ## Чтобы открыть User Story Map в WEEEK - нажмите на изображение
+> **Чтобы открыть User Story Map в WEEEK - нажмите на изображение**
 
 
 [![User Story Map](./user-story-map.png)](https://app.weeek.net/ws/957356/shared/board/hnHo6xe1DLYwAC2mx1NWaXLSvSTIbSKp)
