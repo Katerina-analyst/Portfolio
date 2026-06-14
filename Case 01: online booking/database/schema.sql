@@ -3,13 +3,13 @@
 
 CREATE TABLE users (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
     user_type ENUM('master', 'client') NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_users PRIMARY KEY (id),
-    CONSTRAINT chk_users_name_not_empty CHECK (CHAR_LENGTH(TRIM(name)) > 0),
-    CONSTRAINT chk_users_name_format CHECK (name REGEXP '^[А-Яа-яЁёA-Za-z -]+$')
+    CONSTRAINT chk_users_name_not_empty CHECK (CHAR_LENGTH(TRIM(full_name)) > 0),
+    CONSTRAINT chk_users_name_format CHECK (full_name REGEXP '^[А-Яа-яЁёA-Za-z -]+$')
 );
 
 CREATE INDEX idx_users_user_type ON users (user_type);
@@ -19,10 +19,10 @@ CREATE INDEX idx_users_user_type ON users (user_type);
 
 CREATE TABLE procedure_categories (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    category_name VARCHAR(255) NOT NULL,
     CONSTRAINT pk_procedure_categories PRIMARY KEY (id),
-    CONSTRAINT uq_procedure_categories_name UNIQUE (name),
-    CONSTRAINT chk_procedure_categories_name_not_empty CHECK (CHAR_LENGTH(TRIM(name)) > 0)
+    CONSTRAINT uq_procedure_categories_name UNIQUE (category_name),
+    CONSTRAINT chk_procedure_categories_name_not_empty CHECK (CHAR_LENGTH(TRIM(category_name)) > 0)
 );
 
 -- Таблица 3: procedures
@@ -32,7 +32,7 @@ CREATE TABLE procedures (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     category_id BIGINT UNSIGNED NOT NULL,
     master_user_id BIGINT UNSIGNED NOT NULL,
-    name VARCHAR(255) NOT NULL,
+    procedure_name VARCHAR(255) NOT NULL,
     description VARCHAR(500) NULL,
     price DECIMAL(10, 2) NOT NULL,
     duration INT UNSIGNED NOT NULL,
@@ -46,11 +46,11 @@ CREATE TABLE procedures (
     CONSTRAINT fk_procedures_masters FOREIGN KEY (master_user_id) REFERENCES users(id)
         ON DELETE RESTRICT
         ON UPDATE CASCADE,
-    CONSTRAINT uq_procedures_category_name UNIQUE (category_id, name),
+    CONSTRAINT uq_procedures_category_name UNIQUE (category_id, procedure_name),
     CONSTRAINT chk_procedures_price CHECK (price >= 0),
     CONSTRAINT chk_procedures_duration CHECK (duration > 0),
-    CONSTRAINT chk_procedures_name_not_empty CHECK (CHAR_LENGTH(TRIM(name)) > 0),
-    CONSTRAINT chk_procedures_name_format CHECK (name REGEXP '^[А-Яа-яЁёA-Za-z0-9 .,+()/-]+$')
+    CONSTRAINT chk_procedures_name_not_empty CHECK (CHAR_LENGTH(TRIM(procedure_name)) > 0),
+    CONSTRAINT chk_procedures_name_format CHECK (procedure_name REGEXP '^[А-Яа-яЁёA-Za-z0-9 .,+()/-]+$')
 );
 
 CREATE INDEX idx_procedures_category_status ON procedures (category_id, status);
@@ -194,11 +194,13 @@ CREATE INDEX idx_notifications_status_created_at ON notifications (status, creat
 
 CREATE TABLE channel_types (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    code ENUM('phone', 'telegram', 'email', 'vk', 'max') NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    code VARCHAR(20) NOT NULL,
+    channel_name VARCHAR(100) NOT NULL,
     CONSTRAINT pk_channel_types PRIMARY KEY (id),
     CONSTRAINT uq_channel_types_code UNIQUE (code),
-    CONSTRAINT chk_channel_types_name_not_empty CHECK (CHAR_LENGTH(TRIM(name)) > 0)
+    CONSTRAINT uq_channel_types_channel_name UNIQUE (channel_name),
+    CONSTRAINT chk_channel_types_code_not_empty CHECK (CHAR_LENGTH(TRIM(code)) > 0),
+    CONSTRAINT chk_channel_types_channel_name_not_empty CHECK (CHAR_LENGTH(TRIM(channel_name)) > 0)
 );
 
 -- Таблица 10: contact_channels
