@@ -27,20 +27,24 @@
 |-------------|---------------------|----------------|--------------------|-----------------|--------------------|-------------------------|
 | id | Уникальный идентификатор пользователя | bigint | — | PRIMARY KEY, AUTO_INCREMENT | NOT NULL | Положительное целое число, генерируется системой |
 | name | Имя пользователя | varchar | 100 | Допускаются буквы кириллицы, латиницы, пробел и дефис | NOT NULL | Имя мастера или имя клиента, введенное при онлайн-записи |
-| user_type | Тип пользователя | enum | — | ENUM('master', 'client') | NOT NULL | `master` — мастер; `client` — клиент |
+| user_type | Тип пользователя | enum | — | ENUM('master', 'client') | NOT NULL | `master` - мастер; `client` - клиент |
+| created_at | Дата и время создания пользователя | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления пользователя | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
 
 ### 2. Процедура
 
 | **Атрибут** | **Бизнес-описание** | **Тип данных** | **Длина / формат** | **Ограничение** | **Обязательность** | **Допустимые значения** |
 |-------------|---------------------|----------------|--------------------|-----------------|--------------------|-------------------------|
 | id | Уникальный идентификатор процедуры | bigint | — | PRIMARY KEY, AUTO_INCREMENT | NOT NULL | Положительное целое число, генерируется системой |
-| category_id | Идентификатор категории процедуры | bigint | — | FOREIGN KEY к Procedure_categories.id | NOT NULL | Значение из справочника категорий процедур |
+| category_id | Идентификатор категории процедуры | bigint | — | FOREIGN KEY к Categories.id | NOT NULL | Значение из справочника категорий процедур |
 | master_user_id | Идентификатор мастера, который выполняет процедуру | bigint | — | FOREIGN KEY Users.id | NOT NULL | Пользователь с `user_type = master` |
 | name | Название процедуры | varchar | 255 | — | NOT NULL | Например: консультация, пилинг, чистка лица, ботулинотерапия |
 | description | Краткое описание процедуры | varchar | 500 | — | NULL | Краткая информация о ценности процедуры и о ее назначении |
 | price | Стоимость процедуры | decimal | 10,2 | CHECK price >= 0 | NOT NULL | Положительное число или 0 |
 | duration | Длительность процедуры | integer | минуты | CHECK duration > 0 | NOT NULL | Целое число минут |
 | status | Статус доступности процедуры для онлайн-записи | enum | — | ENUM('available', 'unavailable') | NOT NULL | `available` - доступна для записи; `unavailable` - недоступна для записи |
+| created_at | Дата и время создания процедуры | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления процедуры | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
 
 ### 3. Запись
 
@@ -55,17 +59,20 @@
 | fixed_price | Стоимость процедуры на момент создания записи | decimal | 10,2 | CHECK fixed_price >= 0 | NOT NULL | Фиксируется из стоимости выбранной процедуры при создании записи |
 | status | Статус записи | enum | — | ENUM('created', 'canceled') | NOT NULL | `created` - создана; `canceled` - отменена |
 | access_token | Токен доступа к записи по ссылке | varchar | 255 | UNIQUE | NOT NULL | Уникальное значение, генерируется системой для просмотра и отмены записи по ссылке |
-| created_at | Дата и время создания записи | timestamp | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Фактические дата и время создания записи |
-| canceled_at | Дата и время отмены записи | timestamp | YYYY-MM-DD HH:MM:SS | — | NULL | Заполняется после отмены записи |
+| created_at | Дата и время создания записи | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Фактические дата и время создания записи |
+| updated_at | Дата и время последнего обновления записи | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
+| canceled_at | Дата и время отмены записи | datetime | YYYY-MM-DD HH:MM:SS | — | NULL | Заполняется после отмены записи |
 
 ### 4. Расписание
 
 | **Атрибут** | **Бизнес-описание** | **Тип данных** | **Длина / формат** | **Ограничение** | **Обязательность** | **Допустимые значения** |
 |-------------|---------------------|----------------|--------------------|-----------------|--------------------|-------------------------|
 | id | Уникальный идентификатор расписания | bigint | — | PRIMARY KEY, AUTO_INCREMENT | NOT NULL | Положительное целое число, генерируется системой |
-| master_user_id | Идентификатор мастера, который выполняет процедуру | bigint | — | FOREIGN KEY к Users.id | NOT NULL | Пользователь с `user_type = master` |
+| master_user_id | Идентификатор мастера | bigint | — | FOREIGN KEY к Users.id | NOT NULL | Пользователь с `user_type = master` |
 | date_from | Дата начала периода | date | YYYY-MM-DD | date_from <= date_to | NOT NULL | Дата начала периода расписания |
 | date_to | Дата окончания периода | date | YYYY-MM-DD | date_to >= date_from | NOT NULL | Дата окончания периода расписания |
+| created_at | Дата и время создания расписания | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления расписания | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
 
 ### 5. День расписания
 
@@ -73,10 +80,12 @@
 |-------------|---------------------|----------------|--------------------|-----------------|--------------------|-------------------------|
 | id | Уникальный идентификатор дня расписания | bigint | — | PRIMARY KEY, AUTO_INCREMENT | NOT NULL | Положительное целое число, генерируется системой |
 | schedule_id | Идентификатор расписания | bigint | — | FOREIGN KEY к Schedules.id | NOT NULL | Существующее расписание мастера |
-| date | Дата дня расписания | date | YYYY-MM-DD | Дата должна быть в пределах периода расписания | NOT NULL | Дата в диапазоне от `date_from` до `date_to` |
-| is_working | Признак рабочего дня | boolean | true / false | — | NOT NULL | `true` — рабочий день; `false` — нерабочий день |
+| work_date | Дата дня расписания | date | YYYY-MM-DD | Дата должна быть в пределах периода расписания | NOT NULL | Дата в диапазоне от `date_from` до `date_to` |
+| is_working | Признак рабочего дня | boolean | true / false | — | NOT NULL | `true` - рабочий день; `false` - нерабочий день |
 | start_time | Время начала работы в этот день | time | HH:MM:SS | start_time < end_time | NULL | Заполняется только для рабочего дня |
 | end_time | Время окончания работы в этот день | time | HH:MM:SS | end_time > start_time | NULL | Заполняется только для рабочего дня |
+| created_at | Дата и время создания дня расписания | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления дня расписания | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
 
 ### 6. Недоступный период 
 
@@ -87,19 +96,22 @@
 | start_time | Время начала недоступного периода | time | HH:MM:SS | start_time < end_time | NOT NULL | Время в пределах рабочего дня, не пересекается с записями и другими недоступными периодами |
 | end_time | Время окончания недоступного периода | time | HH:MM:SS | end_time > start_time | NOT NULL | Время в пределах рабочего дня, не пересекается с записями и другими недоступными периодами |
 | reason | Причина недоступности| varchar | 255 | — | NULL | Например: перерыв, личное время, обучение |
+| created_at | Дата и время создания недоступного периода | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления недоступного периода | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
 
-### 7. Уведомление 
+### 7. Уведомление
 
 | **Атрибут** | **Бизнес-описание** | **Тип данных** | **Длина / формат** | **Ограничение** | **Обязательность** | **Допустимые значения** |
 |-------------|---------------------|----------------|--------------------|-----------------|--------------------|-------------------------|
 | id | Уникальный идентификатор уведомления | bigint | — | PRIMARY KEY, AUTO_INCREMENT | NOT NULL | Положительное целое число, генерируется системой |
 | booking_id | Идентификатор записи | bigint | — | FOREIGN KEY к Bookings.id | NOT NULL | Существующая запись на процедуру |
-| recipient_user_id | Идентификатор получателя | bigint | — | FOREIGN KEY к Users.id | NOT NULL | Пользователь, которому инициирована отправка уведомления |
-| notification_type | Тип уведомления | enum | — | ENUM('booking_created', 'booking_canceled', 'reminder') | NOT NULL | `booking_created` — подтверждение или новая запись; `booking_canceled` — отмена записи; `reminder` — напоминание о визите |
-| message_text | Текст уведомления, сформированный системой для отправки пользователю | text | — | — | NULL | Заполняется, если система сохраняет итоговый текст уведомления |
-| status | Статус отправки уведомления | enum | — | ENUM('created', 'sent', 'delivered', 'error') | NOT NULL | `created` — создано; `sent` — отправлено; `delivered` — доставлено; `error` — ошибка отправки |
-| created_at | Дата и время создания уведомления | timestamp | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Фактические дата и время создания уведомления |
-| sent_at | Дата и время отправки уведомления | timestamp | YYYY-MM-DD HH:MM:SS | — | NULL | Заполняется после отправки уведомления |
+| recipient_user_id | Идентификатор получателя уведомления | bigint | — | FOREIGN KEY к Users.id | NOT NULL | Пользователь, которому инициирована отправка уведомления |
+| notification_type | Тип уведомления | enum | — | ENUM('master_booking_created', 'client_booking_created', 'master_booking_canceled', 'client_booking_canceled', 'client_booking_reminder') | NOT NULL | `master_booking_created` - уведомление мастеру о новой записи; `client_booking_created` - подтверждение записи клиенту; `master_booking_canceled` - уведомление мастеру об отмене клиентом; `client_booking_canceled` - уведомление клиенту об отмене мастером; `client_booking_reminder` - напоминание клиенту о визите |
+| message_text | Итоговый текст уведомления, сформированный backend-приложением по шаблону | text | — | — | NOT NULL | Готовый текст сообщения для отправки получателю |
+| status | Статус отправки уведомления | enum | — | ENUM('created', 'sent', 'delivered', 'error') | NOT NULL | `created` - создано; `sent` - отправлено; `delivered` - доставлено; `error` - ошибка отправки |
+| created_at | Дата и время создания уведомления | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления уведомления | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
+| sent_at | Дата и время отправки уведомления | datetime | YYYY-MM-DD HH:MM:SS | — | NULL | Заполняется после отправки уведомления |
 
 ### 8. Канал связи
 
@@ -108,8 +120,10 @@
 | id | Уникальный идентификатор канала связи | bigint | — | PRIMARY KEY, AUTO_INCREMENT | NOT NULL | Положительное целое число, генерируется системой |
 | user_id | Идентификатор пользователя, которому принадлежит канал связи | bigint | — | FOREIGN KEY к Users.id | NOT NULL | Существующий пользователь |
 | channel_type_id | Идентификатор типа канала связи | bigint | — | FOREIGN KEY к Channel_types.id | NOT NULL | Существующий тип канала связи |
-| value | Значение канала связи | varchar | 255 | — | NOT NULL | Для телефона — номер телефона; для email — адрес почты; для VK/MAX — ссылка или username |
+| value | Значение канала связи | varchar | 255 | CHECK: значение не должно быть пустым | NOT NULL | Для телефона — номер телефона; для email — адрес почты; для telegram, VK, MAX — username, ссылка или идентификатор контакта |
 | is_default | Признак основного канала связи пользователя | boolean | true / false | DEFAULT false | NOT NULL | `true` — основной канал связи; `false` — дополнительный канал связи |
 | status | Статус активности канала связи | enum | — | ENUM('active', 'inactive') DEFAULT 'active' | NOT NULL | `active` — активен; `inactive` — неактивен |
+| created_at | Дата и время создания канала связи | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP | NOT NULL | Дата и время, генерируется системой |
+| updated_at | Дата и время последнего обновления канала связи | datetime | YYYY-MM-DD HH:MM:SS | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | NOT NULL | Дата и время, обновляется системой |
 
 ---

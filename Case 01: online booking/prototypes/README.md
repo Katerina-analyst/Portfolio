@@ -6,12 +6,12 @@
 
 ## Материалы
 
-> **Чтобы открыть интерактивную доску в Miro - нажмите на изображение**
+> **Чтобы открыть доску в Miro - нажмите на изображение**
 
 ### Лендинг
 
-[![Лендинг](./landing-page.png)](https://miro.com/app/board/uXjVHIBZdMk=/?share_link_id=521027226353)
+[![Лендинг](./landing-page.png)](https://miro.com/app/board/uXjVHIBZdMk=/?share_link_id=644252639662)
 
 ### Flow онлайн-записи
 
-[![Flow онлайн-записи](./booking-flow.png)](https://miro.com/app/board/uXjVHIBZdMk=/?share_link_id=521027226353)
+[![Flow онлайн-записи](./booking-flow.png)](https://miro.com/app/board/uXjVHIBZdMk=/?share_link_id=644252639662)
