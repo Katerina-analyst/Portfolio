@@ -13,8 +13,24 @@ insert into channel_types (id, code, channel_name) values
     (4, 'max', 'MAX');
     
 -- 3. users
+
+-- Мастер
+insert into users (
+    id,
+    full_name,
+    user_type,
+    login,
+    password_hash
+) values (
+    1,
+    'Анна Смирнова',
+    'master',
+    'anna.smirnova',
+    'REPLACE_WITH_PASSWORD_HASH'
+);
+
+-- Клиенты
 insert into users (id, full_name, user_type) values
-    (1, 'Анна Смирнова', 'master'),
     (2, 'Мария', 'client'),
     (3, 'Екатерина', 'client'),
     (4, 'Ольга', 'client'),
@@ -30,6 +46,11 @@ insert into users (id, full_name, user_type) values
     (14, 'Ксения', 'client'),
     (15, 'Татьяна', 'client'),
     (16, 'Елена', 'client');
+
+select setval(
+    pg_get_serial_sequence('users', 'id'),
+    (select max(id) from users)
+);
 
 -- 4. procedures
 insert into procedures (id, category_id, master_user_id, procedure_name, description, price, duration, status) values
