@@ -245,5 +245,4 @@ create table contact_channels (
     constraint chk_contact_channels_value check (char_length(trim(value)) > 0),
     constraint uq_contact_channels_user_type_value unique (user_id, channel_type_id, value)
 );
-
 create index idx_contact_channels_user_status on contact_channels (user_id, status);
