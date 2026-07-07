@@ -38,7 +38,7 @@ create table users (
     constraint chk_users_name_not_empty check (char_length(trim(full_name)) > 0),
     constraint chk_users_name_format check (full_name ~ '^[А-Яа-яЁёA-Za-z -]+$'),
     constraint chk_users_login_not_empty check (login is null or char_length(trim(login)) > 0),
-    constraint chk_users_password_hash_not_emptycheck (password_hash is null or char_length(trim(password_hash)) > 0),
+    constraint chk_users_password_hash_not_empty check (password_hash is null or char_length(trim(password_hash)) > 0),
     constraint chk_users_failed_login check (failed_login >= 0),
     constraint chk_users_auth_data check (
             (
@@ -230,11 +230,12 @@ create table contact_channels (
     user_id bigint not null,
     channel_type_id bigint not null,
     value varchar(255) not null,
-    is_default boolean not null default false,
     status varchar(20) not null default 'active',
     created_at timestamp not null default current_timestamp,
     updated_at timestamp not null default current_timestamp,
+
     constraint pk_contact_channels primary key (id),
+
     constraint fk_contact_channels_users foreign key (user_id) references users(id)
         on delete restrict
         on update cascade,
@@ -243,6 +244,8 @@ create table contact_channels (
         on update cascade,
     constraint chk_contact_channels_status check (status in ('active', 'inactive')),
     constraint chk_contact_channels_value check (char_length(trim(value)) > 0),
-    constraint uq_contact_channels_user_type_value unique (user_id, channel_type_id, value)
+    constraint uq_contact_channels_user_type unique (user_id, channel_type_id),
+    constraint uq_contact_channels_type_value unique (channel_type_id, value)
 );
+
 create index idx_contact_channels_user_status on contact_channels (user_id, status);

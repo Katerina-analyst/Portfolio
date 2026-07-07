@@ -175,7 +175,6 @@
 |`FRQ-11.11`|`UC-06`|`BR-NOTIFY-07`|`notifications`||||
 |`FRQ-11.12`|`UC-06`|`BR-NOTIFY-08`|`bookings`<br>`notifications`||||
 |`FRQ-11.13`|`UC-06`|`BR-CHANNEL-01`<br>`BR-NOTIFY-01`–`BR-NOTIFY-04`|`notifications`<br>`users`<br>`contact_channels`<br>`channel_types`||||
-|`FRQ-11.14`|`UC-06`|`BR-CHANNEL-05`–`BR-CHANNEL-07`|`notifications`<br>`users`<br>`contact_channels`<br>`channel_types`||||
 
 ## 8. Отмена записи клиентом
 

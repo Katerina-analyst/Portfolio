@@ -22,7 +22,7 @@ where
     and 
     b.status = 'created'
     and 
-    s_d.work_date >= current_date;
+    s_d.work_date >= date '2026-06-22';
     
 -- 3. Плановая выручка и количество записей (status = 'created') по каждой категории. Нужны: название категории, количество броней, сумма.
 select 
@@ -143,8 +143,9 @@ where n.status = 'created'
 order by date_time_created desc;
 
 -- 11. Создание записи. Пример insert после проверок доступности слота на backend
-insert into bookings (procedure_id, schedule_day_id, client_user_id, start_time, end_time, fixed_price, status, access_token) values 
-(3, 6, 8, '15:00:00', '16:00:00', 2500.00, 'created', 'booking-token-irina-021');
+insert into bookings (procedure_id, schedule_day_id, client_user_id, start_time, end_time, fixed_price, status, access_token, data_consent
+) values
+    (3, 6, 8, '15:00:00', '16:00:00', 2500.00, 'created', 'booking-token-irina-021', true);
 
 -- 12. Топ-5 клиентов по сумме записей. Получить: имя, номер телефона и сумму по активным записям клиентов
 select 

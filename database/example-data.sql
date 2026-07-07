@@ -81,27 +81,28 @@ insert into unavailable_periods (id, schedule_day_id, start_time, end_time, reas
     (3, 6, '13:00:00', '14:00:00', 'Перерыв');
 
 -- 8. bookings
-insert into bookings (id, procedure_id, schedule_day_id, client_user_id, start_time, end_time, fixed_price, status, access_token, canceled_at) values
-    (1, 1, 1, 2, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-maria-001', null),
-    (2, 3, 1, 3, '13:30:00', '14:30:00', 2500.00, 'created', 'booking-token-ekaterina-002', null),
-    (3, 4, 2, 4, '10:30:00', '11:00:00', 3500.00, 'canceled', 'booking-token-olga-003', '2026-06-22 18:20:00'),
-    (4, 5, 4, 5, '11:00:00', '12:00:00', 4000.00, 'created', 'booking-token-natalia-004', null),
-    (5, 4, 1, 6, '11:00:00', '11:30:00', 3500.00, 'created', 'booking-token-alina-005', null),
-    (6, 5, 1, 7, '14:30:00', '15:30:00', 4000.00, 'created', 'booking-token-victoria-006', null),
-    (7, 1, 2, 8, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-irina-007', null),
-    (8, 3, 2, 9, '11:00:00', '12:00:00', 2500.00, 'created', 'booking-token-svetlana-008', null),
-    (9, 4, 2, 10, '12:00:00', '12:30:00', 3500.00, 'created', 'booking-token-daria-009', null),
-    (10, 1, 3, 11, '09:00:00', '10:00:00', 8000.00, 'created', 'booking-token-yulia-010', null),
-    (11, 3, 3, 12, '10:30:00', '11:30:00', 2500.00, 'created', 'booking-token-polina-011', null),
-    (12, 4, 3, 13, '12:00:00', '12:30:00', 3500.00, 'created', 'booking-token-veronika-012', null),
-    (13, 5, 3, 14, '14:00:00', '15:00:00', 4000.00, 'created', 'booking-token-ksenia-013', null),
-    (14, 3, 4, 15, '09:00:00', '10:00:00', 2500.00, 'created', 'booking-token-tatiana-014', null),
-    (15, 4, 4, 16, '10:00:00', '10:30:00', 3500.00, 'created', 'booking-token-elena-015', null),
-    (16, 1, 4, 2, '12:30:00', '13:30:00', 8000.00, 'created', 'booking-token-maria-016', null),
-    (17, 5, 6, 3, '09:00:00', '10:00:00', 4000.00, 'created', 'booking-token-ekaterina-017', null),
-    (18, 3, 6, 4, '10:00:00', '11:00:00', 2500.00, 'created', 'booking-token-olga-018', null),
-    (19, 1, 7, 5, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-natalia-019', null),
-    (20, 4, 7, 6, '11:00:00', '11:30:00', 3500.00, 'created', 'booking-token-alina-020', null);
+insert into bookings (id, procedure_id, schedule_day_id, client_user_id, start_time, end_time, fixed_price, status, access_token, data_consent, canceled_at
+) values
+    (1, 1, 1, 2, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-maria-001', true, null),
+    (2, 3, 1, 3, '13:30:00', '14:30:00', 2500.00, 'created', 'booking-token-ekaterina-002', true, null),
+    (3, 4, 2, 4, '10:30:00', '11:00:00', 3500.00, 'canceled', 'booking-token-olga-003', true, '2026-06-22 18:20:00'),
+    (4, 5, 4, 5, '11:00:00', '12:00:00', 4000.00, 'created', 'booking-token-natalia-004', true, null),
+    (5, 4, 1, 6, '11:00:00', '11:30:00', 3500.00, 'created', 'booking-token-alina-005', true, null),
+    (6, 5, 1, 7, '14:30:00', '15:30:00', 4000.00, 'created', 'booking-token-victoria-006', true, null),
+    (7, 1, 2, 8, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-irina-007', true, null),
+    (8, 3, 2, 9, '11:00:00', '12:00:00', 2500.00, 'created', 'booking-token-svetlana-008', true, null),
+    (9, 4, 2, 10, '12:00:00', '12:30:00', 3500.00, 'created', 'booking-token-daria-009', true, null),
+    (10, 1, 3, 11, '09:00:00', '10:00:00', 8000.00, 'created', 'booking-token-yulia-010', true, null),
+    (11, 3, 3, 12, '10:30:00', '11:30:00', 2500.00, 'created', 'booking-token-polina-011', true, null),
+    (12, 4, 3, 13, '12:00:00', '12:30:00', 3500.00, 'created', 'booking-token-veronika-012', true, null),
+    (13, 5, 3, 14, '14:00:00', '15:00:00', 4000.00, 'created', 'booking-token-ksenia-013', true, null),
+    (14, 3, 4, 15, '09:00:00', '10:00:00', 2500.00, 'created', 'booking-token-tatiana-014', true, null),
+    (15, 4, 4, 16, '10:00:00', '10:30:00', 3500.00, 'created', 'booking-token-elena-015', true, null),
+    (16, 1, 4, 2, '12:30:00', '13:30:00', 8000.00, 'created', 'booking-token-maria-016', true, null),
+    (17, 5, 6, 3, '09:00:00', '10:00:00', 4000.00, 'created', 'booking-token-ekaterina-017', true, null),
+    (18, 3, 6, 4, '10:00:00', '11:00:00', 2500.00, 'created', 'booking-token-olga-018', true, null),
+    (19, 1, 7, 5, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-natalia-019', true, null),
+    (20, 4, 7, 6, '11:00:00', '11:30:00', 3500.00, 'created', 'booking-token-alina-020', true, null);
 
 -- 9. notifications
 insert into notifications (id, booking_id, recipient_user_id, notification_type, message_text, status, sent_at) values
@@ -131,29 +132,29 @@ insert into notifications (id, booking_id, recipient_user_id, notification_type,
     (24, 20, 6, 'client_booking_reminder', 'Алина, напоминаем о визите 28.06.2026 в 11:00. Посмотреть или отменить запись: https://beauty-bliss.ru/booking/booking-token-alina-020', 'created', null);
 
 -- 10. contact_channels
-insert into contact_channels (id, user_id, channel_type_id, value, is_default, status) values
+insert into contact_channels (id, user_id, channel_type_id, value, status) values
     -- каналы связи мастера
-    (1, 1, 1, '+79990000001', true, 'active'),
-    (2, 1, 2, 'master@beauty-bliss.ru', false, 'active'),
-    (3, 1, 3, 'https://vk.com/beauty_bliss_master', false, 'active'),
-    (4, 1, 4, '@beauty_bliss_max', false, 'active'),
+    (1, 1, 1, '+79990000001','active'),
+    (2, 1, 2, 'master@beauty-bliss.ru', 'active'),
+    (3, 1, 3, 'https://vk.com/beauty_bliss_master', 'active'),
+    (4, 1, 4, '@beauty_bliss_max', 'active'),
 
     -- каналы связи клиентов
-    (5, 2, 1, '+79991111111', true, 'active'),
-    (6, 3, 1, '+79992222222', true, 'active'),
-    (7, 4, 1, '+79993333333', true, 'active'),
-    (8, 5, 1, '+79994444444', true, 'active'),
-    (9, 6, 1, '+79995555555', true, 'active'),
-    (10, 7, 1, '+79996666666', true, 'active'),
-    (11, 8, 1, '+79997777777', true, 'active'),
-    (12, 9, 1, '+79998888888', true, 'active'),
-    (13, 10, 1, '+79990001111', true, 'active'),
-    (14, 11, 1, '+79990002222', true, 'active'),
-    (15, 12, 1, '+79990003333', true, 'active'),
-    (16, 13, 1, '+79990004444', true, 'active'),
-    (17, 14, 1, '+79990005555', true, 'active'),
-    (18, 15, 1, '+79990006666', true, 'active'),
-    (19, 16, 1, '+79990007777', true, 'active');
+    (5, 2, 1, '+79991111111','active'),
+    (6, 3, 1, '+79992222222', 'active'),
+    (7, 4, 1, '+79993333333', 'active'),
+    (8, 5, 1, '+79994444444', 'active'),
+    (9, 6, 1, '+79995555555', 'active'),
+    (10, 7, 1, '+79996666666', 'active'),
+    (11, 8, 1, '+79997777777', 'active'),
+    (12, 9, 1, '+79998888888', 'active'),
+    (13, 10, 1, '+79990001111', 'active'),
+    (14, 11, 1, '+79990002222', 'active'),
+    (15, 12, 1, '+79990003333', 'active'),
+    (16, 13, 1, '+79990004444', 'active'),
+    (17, 14, 1, '+79990005555', 'active'),
+    (18, 15, 1, '+79990006666', 'active'),
+    (19, 16, 1, '+79990007777', 'active');
 -- синхронизация id-счётчиков после ручной вставки id, для корректного автоматического присвоения следующих id 
 
 select setval(pg_get_serial_sequence('procedure_categories', 'id'), (select max(id) from procedure_categories));
