@@ -17,21 +17,22 @@ database PostgreSQL
 activate Клиент
 activate Frontend
 
-Frontend -> Backend : GET /public/v1/procedure-categories\nquery: order=categoryName,asc
+Frontend -> Backend : GET /public/v1/procedure-categories
 activate Backend
 
-Backend -> PostgreSQL : Получить категории процедур
+Backend -> PostgreSQL : Получить список категорий,\nотсортированный по названию в алфавитном порядке
 activate PostgreSQL
 
 PostgreSQL --> Backend : Список категорий
 deactivate PostgreSQL
 
 Backend --> Frontend : 200 OK\nСписок категорий
+deactivate Backend
 Frontend --> Клиент : Отобразить форму записи
 Клиент -> Frontend : Ввести имя и телефон
 Frontend -> Frontend : Проверить имя\nи номер телефона
 deactivate Frontend
-deactivate Backend
+
 
 == Получение доступных процедур ==
 
@@ -74,7 +75,7 @@ alt Даты найдены
     Frontend --> Клиент : Показать доступные даты
 else Даты не найдены
     Backend --> Frontend : 200 OK\nПустой список
-    Frontend --> Клиент : Сообщить об отсутствии доступных дат\nи предложить выбор другой даты
+    Frontend --> Клиент : Сообщить об отсутствии доступных дат\nи показать контакты мастера
 end
 
 deactivate Backend
@@ -101,7 +102,7 @@ alt Слоты найдены
     Frontend --> Клиент : Показать доступные слоты
 else Слоты не найдены
     Backend --> Frontend : 200 OK\nПустой список
-    Frontend --> Клиент : Сообщить об отсутствии свободных слотов\nи предложить выбор другого слота
+    Frontend --> Клиент : Сообщить об отсутствии свободных слотов, на выбранную дату\nи предложить выбор другой даты
 end
 
 deactivate Backend
@@ -129,12 +130,12 @@ PostgreSQL --> Backend : Результат поиска
 deactivate PostgreSQL
 
 alt Клиент найден
-    Backend -> Backend : Использовать найденного клиента
+    Backend -> Backend : Использовать идентификатор\nсуществующего клиента
 else Клиент не найден
-    Backend -> PostgreSQL : Создать пользователя с типом client\nи каналом связи phone
+    Backend -> PostgreSQL : Создать клиента\nс контактным каналом phone
     activate PostgreSQL
 
-    PostgreSQL --> Backend : Данные созданного пользователя
+    PostgreSQL --> Backend : Идентификатор созданного клиента
     deactivate PostgreSQL
 end
 
