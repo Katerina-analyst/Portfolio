@@ -33,7 +33,6 @@
 | failed_login | Количество последовательных неуспешных попыток входа | integer | — | default `0`, check: `failed_login >= 0` | not null | `0` и более; после успешного входа сбрасывается в `0` |
 | locked_until | Дата и время окончания временной блокировки входа | timestamp | YYYY-MM-DD HH:MM:SS | Заполняется после 3 последовательных неуспешных попыток входа | null | `null` — вход не заблокирован; дата и время — вход заблокирован до указанного момента |
 | created_at | Дата и время создания пользователя | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления пользователя | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении пользователя |
 
 ### 2. Процедура
 
@@ -48,7 +47,6 @@
 | duration | Длительность процедуры | integer | минуты | check: `duration > 0` | not null | Целое число минут |
 | status | Статус доступности процедуры для онлайн-записи | varchar | 20 | check: значение входит в список `available`, `unavailable`; default `available` | not null | `available` - доступна для записи; `unavailable` - недоступна для записи |
 | created_at | Дата и время создания процедуры | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления процедуры | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении процедуры |
 
 ### 3. Расписание
 
@@ -59,7 +57,6 @@
 | date_from | Дата начала периода | date | YYYY-MM-DD | check: `date_from <= date_to` | not null | Дата начала периода расписания |
 | date_to | Дата окончания периода | date | YYYY-MM-DD | check: `date_to >= date_from` | not null | Дата окончания периода расписания |
 | created_at | Дата и время создания расписания | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления расписания | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении расписания |
 
 ### 4. Дни расписания
 
@@ -72,7 +69,6 @@
 | start_time | Время начала работы в этот день | time | HH:MM:SS | для рабочего дня обязательно; `start_time < end_time` | null | Заполняется только для рабочего дня |
 | end_time | Время окончания работы в этот день | time | HH:MM:SS | для рабочего дня обязательно; `end_time > start_time` | null | Заполняется только для рабочего дня |
 | created_at | Дата и время создания дня расписания | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления дня расписания | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении дня расписания |
 
 ### 5. Недоступные периоды
 
@@ -84,7 +80,6 @@
 | end_time | Время окончания недоступного периода | time | HH:MM:SS | check: `end_time > start_time` | not null | Время в пределах рабочего дня; не должно пересекаться с записями и другими недоступными периодами |
 | reason | Причина недоступности | varchar | 255 | — | null | Например: перерыв, личное время, обучение |
 | created_at | Дата и время создания недоступного периода | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления недоступного периода | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении недоступного периода |
 
 ### 6. Записи
 | **Атрибут** | **Бизнес-описание** | **Тип данных** | **Длина / формат** | **Ограничение** | **Обязательность** | **Допустимые значения** |
@@ -96,11 +91,10 @@
 | start_time | Время начала записи | time | HH:MM:SS | check: `start_time < end_time` | not null | Время начала выбранного клиентом временного интервала |
 | end_time | Время окончания записи | time | HH:MM:SS | check: `end_time > start_time` | not null | Рассчитывается как `start_time + duration` выбранной процедуры |
 | fixed_price | Стоимость процедуры на момент создания записи | decimal | 10,2 | check: `fixed_price >= 0` | not null | Фиксируется из стоимости выбранной процедуры при создании записи |
-| status | Статус записи | varchar | 20 | check: значение входит в список `created`, `canceled`; default `created` | not null | `created` — запись создана; `canceled` — запись отменена |
+| status | Статус записи | varchar | 20 | check: значение входит в список `created`, `canceled`, `completed`, `no_show` ; default `created` | not null | `created` -  создана; `canceled` - отменена, `completed` - выполнена, `no_show` - неявка|
 | access_token | Токен доступа к записи по ссылке | varchar | 255 | unique, check: значение не должно быть пустым | not null | Уникальное значение, генерируется системой для просмотра и отмены записи по ссылке |
 | data_consent | Согласие клиента на обработку персональных данных | boolean | true / false | check: `data_consent = true` | not null | `true` — клиент предоставил согласие; при `false` запись не создается |
 | created_at | Дата и время создания записи | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Фактические дата и время создания записи |
-| updated_at | Дата и время последнего обновления записи | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении записи |
 | canceled_at | Дата и время отмены записи | timestamp | YYYY-MM-DD HH:MM:SS | check: при `status = canceled` обязательно заполнено, при `status = created` должно быть пустым | null | Заполняется после отмены записи |
 
 ### 7. Уведомления
@@ -114,7 +108,6 @@
 | message_text | Итоговый текст уведомления, сформированный backend-приложением по шаблону | text | — | check: значение не должно быть пустым | not null | Готовый текст сообщения для отправки получателю |
 | status | Статус отправки уведомления | varchar | 20 | check: значение входит в список `created`, `sent`, `delivered`, `error`; default `created` | not null | `created` - создано; `sent` - отправлено; `delivered` - доставлено; `error` - ошибка отправки |
 | created_at | Дата и время создания уведомления | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления уведомления | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении уведомления |
 | sent_at | Дата и время отправки уведомления | timestamp | YYYY-MM-DD HH:MM:SS | check: для `created`, `error` должно быть пустым; для `sent`, `delivered` должно быть заполнено | null | Заполняется после отправки уведомления |
 
 ### 8. Каналы связи
@@ -127,6 +120,5 @@
 | value | Нормализованное значение канала связи | varchar | До 255 символов; для телефона — `+7XXXXXXXXXX` | check: not empty; количество каждого типа канала на пользователя <= 1 | not null | `phone` - номер телефона, `email` - адрес электронной почты; для `vk` и `max` - ссылка |
 | status | Статус активности канала связи | varchar | 20 | значение входит в список `active`, `inactive`; default `active` | not null | `active` - активен; `inactive` - неактивен |
 | created_at | Дата и время создания канала связи | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, генерируется БД |
-| updated_at | Дата и время последнего обновления канала связи | timestamp | YYYY-MM-DD HH:MM:SS | default current_timestamp | not null | Дата и время, обновляется системой при изменении канала связи |
 
 ---

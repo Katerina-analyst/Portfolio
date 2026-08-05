@@ -47,11 +47,6 @@ insert into users (id, full_name, user_type) values
     (15, 'Татьяна', 'client'),
     (16, 'Елена', 'client');
 
-select setval(
-    pg_get_serial_sequence('users', 'id'),
-    (select max(id) from users)
-);
-
 -- 4. procedures
 insert into procedures (id, category_id, master_user_id, procedure_name, description, price, duration, status) values
     (1, 1, 1, 'Лечение гипергидроза', 'Инъекционное подавление активности потовых желез', 8000.00, 60, 'available'),
@@ -98,7 +93,7 @@ insert into bookings (id, procedure_id, schedule_day_id, client_user_id, start_t
     (13, 5, 3, 14, '14:00:00', '15:00:00', 4000.00, 'created', 'booking-token-ksenia-013', true, null),
     (14, 3, 4, 15, '09:00:00', '10:00:00', 2500.00, 'created', 'booking-token-tatiana-014', true, null),
     (15, 4, 4, 16, '10:00:00', '10:30:00', 3500.00, 'created', 'booking-token-elena-015', true, null),
-    (16, 1, 4, 2, '12:30:00', '13:30:00', 8000.00, 'created', 'booking-token-maria-016', true, null),
+    (16, 1, 4, 2, '15:30:00', '16:30:00', 8000.00, 'created', 'booking-token-maria-016', true, null),
     (17, 5, 6, 3, '09:00:00', '10:00:00', 4000.00, 'created', 'booking-token-ekaterina-017', true, null),
     (18, 3, 6, 4, '10:00:00', '11:00:00', 2500.00, 'created', 'booking-token-olga-018', true, null),
     (19, 1, 7, 5, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-natalia-019', true, null),
@@ -110,7 +105,7 @@ insert into notifications (id, booking_id, recipient_user_id, notification_type,
     (2, 1, 2, 'client_booking_created', 'Мария, вы записаны на процедуру «Лечение гипергидроза» 22.06.2026 в 10:00. Посмотреть или отменить запись можно по ссылке: https://beauty-bliss.ru/booking/booking-token-maria-001', 'delivered', '2026-06-21 10:01:00'),
     (3, 2, 1, 'master_booking_created', 'Новая запись: Екатерина записалась на процедуру «RF-лифтинг» 22.06.2026 в 13:30.', 'sent', '2026-06-21 10:15:00'),
     (4, 2, 3, 'client_booking_created', 'Екатерина, вы записаны на процедуру «RF-лифтинг» 22.06.2026 в 13:30. Посмотреть или отменить запись можно по ссылке: https://beauty-bliss.ru/booking/booking-token-ekaterina-002', 'delivered', '2026-06-21 10:15:00'),
-    (5, 3, 1, 'master_booking_canceled', 'Клиент Ольга отменил запись на процедуру «Пилинг Bio Re Peel» 23.06.2026 в 10:30.', 'sent', '2026-06-22 18:21:00'),
+    (5, 3, 1, 'master_booking_canceled', 'Клиент Ольга отменила запись на процедуру «Пилинг Bio Re Peel» 23.06.2026 в 10:30.', 'sent', '2026-06-22 18:21:00'),
     (6, 4, 1, 'master_booking_created', 'Новая запись: Наталья записалась на процедуру «Перманент губ» 25.06.2026 в 11:00.', 'sent', '2026-06-21 11:05:00'),
     (7, 4, 5, 'client_booking_created', 'Наталья, вы записаны на процедуру «Перманент губ» 25.06.2026 в 11:00. Посмотреть или отменить запись можно по ссылке: https://beauty-bliss.ru/booking/booking-token-natalia-004', 'delivered', '2026-06-21 11:05:00'),
     (8, 4, 5, 'client_booking_reminder', 'Наталья, напоминаем о визите 25.06.2026 в 11:00. Посмотреть или отменить запись: https://beauty-bliss.ru/booking/booking-token-natalia-004', 'created', null),

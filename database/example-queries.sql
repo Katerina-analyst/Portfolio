@@ -9,7 +9,8 @@ select
     s_d.work_date, 
     b.start_time, 
     p.procedure_name, 
-    m.full_name as master_name
+    m.full_name as master_name,
+    u.full_name as client_name
 from bookings b
 join schedule_days s_d on s_d.id = b.schedule_day_id
 join procedures p on p.id = b.procedure_id
@@ -45,7 +46,7 @@ select
     b.end_time as end_visit,
     b.fixed_price as price,
     cl.full_name as client_name,
-    cc.value
+    cc.value as number_phone
 from bookings b
 join procedures p on p.id = b.procedure_id
 join schedule_days sd on sd.id = b.schedule_day_id
@@ -60,7 +61,7 @@ where
     b.status = 'created'
     and 
     cc.status = 'active';
-
+    
 -- 5. Активные каналы связи мастера. Получить: список активных каналов
 select 
     u.full_name as master_name,
@@ -102,20 +103,19 @@ where b.access_token = 'booking-token-polina-011';
 -- После отмены backend создаёт уведомление мастеру, если отмена по access_token и клиенту если по id
 
 -- отмена клиентом
+-- отмена записи клиентом по access_token
 update bookings
 set
     status = 'canceled',
-    canceled_at = current_timestamp,
-    updated_at = current_timestamp
+    canceled_at = current_timestamp
 where access_token = 'booking-token-polina-011'
   and status = 'created';
 
--- отмена записи мастером
+-- отмена записи мастером по id
 update bookings
 set
     status = 'canceled',
-    canceled_at = current_timestamp,
-    updated_at = current_timestamp
+    canceled_at = current_timestamp
 where id = 12
   and status = 'created';
 
