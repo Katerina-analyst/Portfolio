@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: Beauty Bliss REST API
+  version: '1.0.0'
+tags: 
+  - name: Категории процедур
+  - name: Доступные процедуры
+  - name: Доступные даты
+  - name: Доступные слоты
+  - name: Записи
+paths: 
+  /public/v1/procedure-categories:
+    get: 
+      summary: Получить список категорий процедур
+      description: >
+        Возвращает список категорий процедур, отсортированный по названию в алфавитном порядке.
+        Метод публичный, авторизация не требуется.
+      tags: 
+        - Категории процедур
+      responses: 
+        '200':
+          description: Список категорий процедур успешно получен.
+          content: 
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProcedureCategory'
+              example: 
+                - categoryId: 2
+                  categoryName: "Аппаратная и эстетическая косметология"
+        '429':
+          description: Превышен лимит запросов (60 запросов в минуту) к публичному API.
+          headers: 
+            Retry-After:
+              description: Количество секунд до повторной попытки.
+              schema: 
+                type: integer
+                format: int32
+              example: 30
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                  code: 429
+                  message: "Превышено допустимое количество запросов. Повторите попытку позже."
+        '500':
+          description: Внутренняя ошибка сервера
+          content: 
+            application/json: 
+              schema:
+                 $ref: '#/components/schemas/ErrorResponse'
+              example: 
+                code: 500
+                message: "Внутренняя ошибка сервера."
+components: 
+  schemas:
+    ProcedureCategory:
+        type: object
+        required:
+          - categoryId
+          - categoryName
+        properties:
+          categoryId:
+            type: integer
+            format: int64
+            description: >
+              Уникальный идентификатор категории.
+          categoryName:
+            type: string
+            description: >
+              Наименование категории процедур.
+    ErrorResponse:
+      type: object
+      required: 
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Внутренний код ошибки.
+        message:
+          type: string
+          description: >
+            Сообщение об ошибке, предназначенное для отображения клиенту.
