@@ -111,8 +111,9 @@
 
 ## Диаграмма последовательности: изображение и исходный код
 
-![Диаграмма последовательности](../sequence_diagrams/SQ-01.booking.png)
-[Исходный код диаграммы PlantUML](../sequence_diagrams/SQ-01.booking.puml)
+![Диаграмма последовательности](../sequence-diagrams/SQ-01.booking.png) 
+
+- [Исходный код диаграммы PlantUML](../sequence_diagrams/SQ-01.booking.puml)
 
 ---
 

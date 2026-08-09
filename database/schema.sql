@@ -33,10 +33,10 @@ create table users (
     constraint uq_users_login unique (login),
     constraint chk_users_user_type check (user_type in ('master', 'client')),
     constraint chk_users_name_not_empty check (char_length(trim(full_name)) > 0),
-    constraint chk_users_name_format check (full_name ~ '^[А-Яа-яЁёA-Za-z -]+$'),
+    constraint chk_users_name_format check (full_name ~ '^[А-Яа-яЁёA-Za-z]+([ -][А-Яа-яЁёA-Za-z]+)*$'),
     constraint chk_users_login_not_empty check (login is null or char_length(trim(login)) > 0),
     constraint chk_users_password_hash_not_empty check (password_hash is null or char_length(trim(password_hash)) > 0),
-    constraint chk_users_failed_login check (failed_login >= 0),
+    constraint chk_users_failed_login check (failed_login between 0 and 3),
     constraint chk_users_auth_data check (
             (
                 user_type = 'master'
@@ -49,7 +49,26 @@ create table users (
                 and login is null
                 and password_hash is null
             )
-        )
+    ),
+    constraint chk_users_login_lock check (
+            (
+                user_type = 'client'
+                and failed_login = 0
+                and locked_until is null
+            )
+            or
+            (
+                user_type = 'master'
+                and failed_login < 3
+                and locked_until is null
+            )
+            or
+            (
+                user_type = 'master'
+                and failed_login = 3
+                and locked_until is not null
+            )
+    )
 );
 
 -- 4. procedures
@@ -60,7 +79,7 @@ create table procedures (
     procedure_name varchar(255) not null,
     description varchar(500),
     price decimal(10, 2) not null,
-    duration integer not null,
+    duration_minutes integer not null,
     status varchar(20) not null default 'available',
     created_at timestamp not null default current_timestamp,
     constraint pk_procedures primary key (id),
@@ -73,7 +92,7 @@ create table procedures (
     constraint uq_procedures_category_name unique (category_id, procedure_name),
     constraint chk_procedures_status check (status in ('available', 'unavailable')),
     constraint chk_procedures_price check (price >= 0),
-    constraint chk_procedures_duration check (duration > 0),
+    constraint chk_procedures_duration_minutes check (duration_minutes > 0),
     constraint chk_procedures_name_not_empty check (char_length(trim(procedure_name)) > 0),
     constraint chk_procedures_name_format check (procedure_name ~ '^[А-Яа-яЁёA-Za-z0-9 .,+()/-]+$')
 );

@@ -48,7 +48,7 @@ insert into users (id, full_name, user_type) values
     (16, 'Елена', 'client');
 
 -- 4. procedures
-insert into procedures (id, category_id, master_user_id, procedure_name, description, price, duration, status) values
+insert into procedures (id, category_id, master_user_id, procedure_name, description, price, duration_minutes, status) values
     (1, 1, 1, 'Лечение гипергидроза', 'Инъекционное подавление активности потовых желез', 8000.00, 60, 'available'),
     (2, 1, 1, 'Липолитик Lipo Lab 2 мл', 'Инъекционное расщепление жировых клеток в локальных зонах', 1800.00, 40, 'unavailable'),
     (3, 2, 1, 'RF-лифтинг', 'Прогрев тканей радиоволнами для уплотнения и подтяжки кожи без операции', 2500.00, 60, 'available'),

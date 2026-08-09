@@ -148,14 +148,54 @@ insert into bookings (procedure_id, schedule_day_id, client_user_id, start_time,
     (3, 6, 8, '15:00:00', '16:00:00', 2500.00, 'created', 'booking-token-irina-021', true);
 
 -- 12. Топ-5 клиентов по сумме записей. Получить: имя, номер телефона и сумму по активным записям клиентов
-select 
+select
     u.full_name as client_name,
     cc.value as number_phone,
-    coalesce(sum(b.fixed_price),0) as sum_bookings
+    sum(b.fixed_price) as sum_bookings
 from users u
-join contact_channels cc on cc.user_id = u.id
 join bookings b on b.client_user_id = u.id
-where b.status = 'created' 
-group by u.full_name, cc.value
+join contact_channels cc on cc.user_id = u.id
+join channel_types ct on ct.id = cc.channel_type_id
+where
+    u.user_type = 'client'
+    and b.status = 'created'
+    and cc.status = 'active'
+    and ct.code = 'phone'
+group by u.id, u.full_name, cc.value
 order by sum_bookings desc
 limit 5;
+
+-- 12. Получить всех клиентов у которых нет записей
+select u.id, u.full_name, b.id
+from users u
+left join bookings b on b.client_user_id = u.id
+where u.user_type = 'client'
+    and b.client_user_id is null
+
+-- 13. Вывести все записи, которые не были отменены
+
+select id, client_user_id, status from bookings
+where canceled_at is null
+
+-- 14. Вывести процедуры, цена которых выше средней цены всех процедур
+select procedure_name from procedures
+where price > (select avg(price) from procedures)
+
+-- 13. Вывести клиентов, у которых суммарная стоимость всех записей больше 20 000
+select u.full_name, sum(b.fixed_price) as total_sum
+from users u
+join bookings b on b.client_user_id = u.id
+where u.user_type = 'client'
+group by u.id, u.full_name
+having sum(b.fixed_price) > 20000;
+
+-- 14. Вывести всех клиентов, включая тех, у кого нет записей, и посчитать количество записей со статусом completed
+
+SELECT
+    u.full_name, COUNT(b.id) AS completed_count
+FROM users u
+LEFT JOIN bookings b
+    ON b.client_user_id = u.id
+   AND b.status = 'completed'
+WHERE u.user_type = 'client'
+GROUP BY u.id, u.full_name;
