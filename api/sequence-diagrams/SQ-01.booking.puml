@@ -1,6 +1,6 @@
 @startuml
 
-title Диаграмма последовательности\nSQ-01.Онлайн-запись клиента на процедуру без регистрации
+title Диаграмма последовательности\nSQ-01. Онлайн-запись клиента на процедуры без регистрации
 
 autonumber
 hide footbox
@@ -36,6 +36,7 @@ deactivate Frontend
 
 == Получение доступных процедур ==
 
+loop 
 Клиент -> Frontend : Выбрать категорию
 activate Frontend
 
@@ -52,34 +53,44 @@ Backend --> Frontend : 200 OK\nСписок доступных процедур
 deactivate Backend
 
 Frontend --> Клиент : Отобразить доступные процедуры
+Клиент -> Frontend : Выбрать процедуру
+Frontend -> Frontend : Добавить процедуру в состав визита
+Frontend -> Frontend : Рассчитать общую продолжительность\nи итоговую стоимость визита
+Frontend --> Клиент : Отобразить выбранные процедуры\nи итоговые значения
 deactivate Frontend
+end
+
 
 == Получение доступных дат ==
 
-Клиент -> Frontend : Выбрать процедуру
+Клиент -> Frontend : Нажать «Выбрать дату визита»
 activate Frontend
+
+Frontend -> Frontend : Проверить наличие выбранных процедур
 
 Frontend -> Backend : GET /public/v1/schedule-days\nquery: procedureId={procedureId}
 activate Backend
 
-Backend -> PostgreSQL : Получить данные для расчёта\nдоступных дат
+Backend -> PostgreSQL : Получить длительности выбранных процедур,\nрасписание, недоступные периоды\nи активные записи
 activate PostgreSQL
 
-PostgreSQL --> Backend : Расписание, недоступные периоды\nи активные записи
+PostgreSQL --> Backend : Длительности процедур, расписание,\nнедоступные периоды и активные записи
 deactivate PostgreSQL
 
-Backend -> Backend : Рассчитать доступные даты
+Backend -> Backend : Рассчитать суммарную длительность\nвыбранных процедур
+Backend -> Backend : Рассчитать доступные даты\nс учетом суммарной длительности
 
 alt Даты найдены
     Backend --> Frontend : 200 OK\nСписок доступных дат
-    Frontend --> Клиент : Показать доступные даты
+    Frontend --> Клиент : Показать календарь с доступными датами
 else Даты не найдены
     Backend --> Frontend : 200 OK\nПустой список
-    Frontend --> Клиент : Сообщить об отсутствии доступных дат\nи показать контакты мастера
+    Frontend --> Клиент : Сообщить об отсутствии доступных дат\nи показать контакты косметолога
 end
 
 deactivate Backend
 deactivate Frontend
+
 
 == Получение доступных слотов ==
 
@@ -95,7 +106,7 @@ activate PostgreSQL
 PostgreSQL --> Backend : Расписание, недоступные периоды\nи активные записи
 deactivate PostgreSQL
 
-Backend -> Backend : Рассчитать доступные слоты
+Backend -> Backend : Рассчитать доступные слоты, с учетом суммарной длительности визита
 
 alt Слоты найдены
     Backend --> Frontend : 200 OK\nСписок доступных слотов
@@ -111,6 +122,7 @@ deactivate Frontend
 == Подтверждение и создание записи ==
 
 Клиент -> Frontend : Выбрать доступный слот
+Frontend --> Клиент : Показать экран подтверждения\nс выбранными процедурами, датой, временем,\nконтактами и итоговыми значениями
 activate Frontend
 
 Frontend --> Клиент : Показать чекбокс согласия\nна обработку персональных данных
@@ -118,7 +130,7 @@ Frontend --> Клиент : Показать чекбокс согласия\nн
 Frontend -> Frontend : Проверить наличие согласия
 Frontend --> Клиент : Сделать подтверждение\nзаписи доступным
 Клиент -> Frontend : Подтвердить запись
-Frontend -> Backend : POST /public/v1/bookings\nbody: данные клиента и записи
+Frontend -> Backend : POST /public/v1/bookings\nbody: данные клиента, procedureIds,\nдата, время и согласие
 activate Backend
 
 Backend -> Backend : Проверить обязательные поля,\nсогласие, имя и телефон
@@ -145,9 +157,9 @@ activate PostgreSQL
 PostgreSQL --> Backend : Расписание, недоступные периоды\nи активные записи
 deactivate PostgreSQL
 
-Backend -> Backend : Проверить доступность слота
+Backend -> Backend : Проверить доступность интервала\nс учетом суммарной длительности процедур
 
-alt Слот доступен
+alt Интервал доступен
     Backend -> Backend : Сгенерировать токен доступа
 
     Backend -> PostgreSQL : Создать запись в bookings\nи сохранить токен
@@ -156,8 +168,14 @@ alt Слот доступен
     PostgreSQL --> Backend : Данные созданной записи
     deactivate PostgreSQL
 
+    Backend -> PostgreSQL : Сохранить выбранные процедуры\nи их стоимость в booking_procedures
+    activate PostgreSQL
+
+    PostgreSQL --> Backend : Процедуры сохранены
+    deactivate PostgreSQL
+
     Backend -> Backend : Сформировать ссылку\nдля просмотра и отмены записи
-    
+
 ref over Backend, NotificationService
     INT-06. Отправка уведомлений
 end ref
@@ -165,8 +183,8 @@ end ref
     Backend --> Frontend : 201 Created\nДанные созданной записи
     Frontend --> Клиент : Отобразить подтверждение\nуспешной записи
 
-else Слот уже занят
-    Backend --> Frontend : 409 Conflict\nСлот уже недоступен
+else Интевал недоступен
+    Backend --> Frontend : 409 Conflict\nИнтервал недоступен
     Frontend --> Клиент : Сообщить, что слот занят\nи предложить выбрать другой
 end
 

@@ -76,28 +76,57 @@ insert into unavailable_periods (id, schedule_day_id, start_time, end_time, reas
     (3, 6, '13:00:00', '14:00:00', 'Перерыв');
 
 -- 8. bookings
-insert into bookings (id, procedure_id, schedule_day_id, client_user_id, start_time, end_time, fixed_price, status, access_token, data_consent, canceled_at
-) values
-    (1, 1, 1, 2, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-maria-001', true, null),
-    (2, 3, 1, 3, '13:30:00', '14:30:00', 2500.00, 'created', 'booking-token-ekaterina-002', true, null),
-    (3, 4, 2, 4, '10:30:00', '11:00:00', 3500.00, 'canceled', 'booking-token-olga-003', true, '2026-06-22 18:20:00'),
-    (4, 5, 4, 5, '11:00:00', '12:00:00', 4000.00, 'created', 'booking-token-natalia-004', true, null),
-    (5, 4, 1, 6, '11:00:00', '11:30:00', 3500.00, 'created', 'booking-token-alina-005', true, null),
-    (6, 5, 1, 7, '14:30:00', '15:30:00', 4000.00, 'created', 'booking-token-victoria-006', true, null),
-    (7, 1, 2, 8, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-irina-007', true, null),
-    (8, 3, 2, 9, '11:00:00', '12:00:00', 2500.00, 'created', 'booking-token-svetlana-008', true, null),
-    (9, 4, 2, 10, '12:00:00', '12:30:00', 3500.00, 'created', 'booking-token-daria-009', true, null),
-    (10, 1, 3, 11, '09:00:00', '10:00:00', 8000.00, 'created', 'booking-token-yulia-010', true, null),
-    (11, 3, 3, 12, '10:30:00', '11:30:00', 2500.00, 'created', 'booking-token-polina-011', true, null),
-    (12, 4, 3, 13, '12:00:00', '12:30:00', 3500.00, 'created', 'booking-token-veronika-012', true, null),
-    (13, 5, 3, 14, '14:00:00', '15:00:00', 4000.00, 'created', 'booking-token-ksenia-013', true, null),
-    (14, 3, 4, 15, '09:00:00', '10:00:00', 2500.00, 'created', 'booking-token-tatiana-014', true, null),
-    (15, 4, 4, 16, '10:00:00', '10:30:00', 3500.00, 'created', 'booking-token-elena-015', true, null),
-    (16, 1, 4, 2, '15:30:00', '16:30:00', 8000.00, 'created', 'booking-token-maria-016', true, null),
-    (17, 5, 6, 3, '09:00:00', '10:00:00', 4000.00, 'created', 'booking-token-ekaterina-017', true, null),
-    (18, 3, 6, 4, '10:00:00', '11:00:00', 2500.00, 'created', 'booking-token-olga-018', true, null),
-    (19, 1, 7, 5, '10:00:00', '11:00:00', 8000.00, 'created', 'booking-token-natalia-019', true, null),
-    (20, 4, 7, 6, '11:00:00', '11:30:00', 3500.00, 'created', 'booking-token-alina-020', true, null);
+insert into bookings (id, schedule_day_id, client_user_id, start_time, end_time, status, access_token, data_consent, canceled_at) values
+    (1, 1, 2, '10:00:00', '11:00:00', 'created', 'booking-token-maria-001', true, null),
+    (2, 1, 3, '13:30:00', '14:30:00', 'created', 'booking-token-ekaterina-002', true, null),
+    (3, 2, 4, '10:30:00', '11:00:00', 'canceled', 'booking-token-olga-003', true, '2026-06-22 18:20:00'),
+    (4, 4, 5, '11:00:00', '12:00:00', 'created', 'booking-token-natalia-004', true, null),
+    (5, 1, 6, '11:00:00', '11:30:00', 'created', 'booking-token-alina-005', true, null),
+    (6, 1, 7, '14:30:00', '15:30:00', 'created', 'booking-token-victoria-006', true, null),
+    (7, 2, 8, '10:00:00', '11:00:00', 'created', 'booking-token-irina-007', true, null),
+    (8, 2, 9, '11:00:00', '12:00:00', 'created', 'booking-token-svetlana-008', true, null),
+    (9, 2, 10, '12:00:00', '12:30:00', 'created', 'booking-token-daria-009', true, null),
+    (10, 3, 11, '09:00:00', '10:00:00', 'created', 'booking-token-yulia-010', true, null),
+    (11, 3, 12, '10:30:00', '11:30:00', 'created', 'booking-token-polina-011', true, null),
+    (12, 3, 13, '12:00:00', '12:30:00', 'created', 'booking-token-veronika-012', true, null),
+    (13, 3, 14, '14:00:00', '15:00:00', 'created', 'booking-token-ksenia-013', true, null),
+    (14, 4, 15, '09:00:00', '10:00:00', 'created', 'booking-token-tatiana-014', true, null),
+    (15, 4, 16, '10:00:00', '10:30:00', 'created', 'booking-token-elena-015', true, null),
+
+    -- запись с двумя процедурами общей длительностью 90 минут
+    (16, 4, 2, '16:00:00', '17:30:00', 'created', 'booking-token-maria-016', true, null),
+
+    (17, 6, 3, '09:00:00', '10:00:00', 'created', 'booking-token-ekaterina-017', true, null),
+    (18, 6, 4, '10:00:00', '11:00:00', 'created', 'booking-token-olga-018', true, null),
+    (19, 7, 5, '10:00:00', '11:00:00', 'created', 'booking-token-natalia-019', true, null),
+    (20, 7, 6, '11:00:00', '11:30:00', 'created', 'booking-token-alina-020', true, null);
+
+-- 9. booking_procedures
+insert into booking_procedures (booking_id, procedure_id, fixed_price) values
+    (1, 1, 8000.00),
+    (2, 3, 2500.00),
+    (3, 4, 3500.00),
+    (4, 5, 4000.00),
+    (5, 4, 3500.00),
+    (6, 5, 4000.00),
+    (7, 1, 8000.00),
+    (8, 3, 2500.00),
+    (9, 4, 3500.00),
+    (10, 1, 8000.00),
+    (11, 3, 2500.00),
+    (12, 4, 3500.00),
+    (13, 5, 4000.00),
+    (14, 3, 2500.00),
+    (15, 4, 3500.00),
+
+    -- две процедуры одной записи из разных категорий
+    (16, 1, 8000.00),
+    (16, 4, 3500.00),
+
+    (17, 5, 4000.00),
+    (18, 3, 2500.00),
+    (19, 1, 8000.00),
+    (20, 4, 3500.00);
 
 -- 9. notifications
 insert into notifications (id, booking_id, recipient_user_id, notification_type, message_text, status, sent_at) values

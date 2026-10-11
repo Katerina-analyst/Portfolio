@@ -11,6 +11,11 @@
 |`FRQ-01.03`|`UC-01`|`US-01`|Не применимо|`procedure_categories`<br>`procedures`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-01.04`|`UC-01`|`US-01`|`BR-PROCEDURE-01`|`procedures`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-01.05`|`UC-01`|`US-02`|Не применимо|`procedures`|`INT-01`|`SQ-01`|Не применимо||
+| `FRQ-01.06` | `UC-01` | `US-01` | `BR-BOOKING-10` | `procedures` | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-01.07` | `UC-01` | `US-01` | Не применимо | `procedures` | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-01.08` | `UC-01` | `US-01` | Не применимо | `procedures` | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-01.09` | `UC-01` | `US-01` | Не применимо | `procedures` | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-01.10` | `UC-01` | `US-01` | `BR-BOOKING-06`<br>`BR-BOOKING-12` | `procedures` | `INT-01` | `SQ-01` | Не применимо | |
 
 #### FRQ-02. Выбор даты и времени
 
@@ -24,6 +29,7 @@
 |`FRQ-02.06`|`UC-01`|`US-03`|Не применимо|`schedule_days`<br>`procedures`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-02.07`|`UC-01`|`US-03`|`BR-BOOKING-02`<br>`BR-SLOT-02`-`BR-SLOT-04`|`procedures`<br>`schedule_days`<br>`unavailable_periods`<br>`bookings`|`INT-01`|`SQ-01`|`NFR-05.03`||
 |`FRQ-02.08`|`UC-01`|`US-03`|`BR-BOOKING-02`|`procedures`<br>`schedule_days`<br>`unavailable_periods`<br>`bookings`|`INT-01`|`SQ-01`|Не применимо||
+|`FRQ-02.09` | `UC-01` | `US-03` | Не применимо | `schedule_days` | `INT-01` | `SQ-01` | `NFR-03.01` | |
 
 #### FRQ-03. Ввод контактных данных и согласия
 
@@ -53,23 +59,30 @@
 |`FRQ-04.04`|`UC-01`|`US-04`|`BR-BOOKING-07`-`BR-BOOKING-09`|`procedures`<br>`schedule_days`<br>`unavailable_periods`<br>`bookings`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-04.05`|`UC-01`|`US-04`|`BR-BOOKING-07`-`BR-BOOKING-09`|Не применимо|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-04.06`|`UC-01`|`US-04`|Не применимо|Не применимо|`INT-01`|`SQ-01`|Не применимо||
+| `FRQ-04.07` | `UC-01` | `US-04` | `BR-BOOKING-06`<br>`BR-BOOKING-12` | `procedures`<br>`users`<br>`contact_channels` | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-04.08` | `UC-01` | `US-04` | Не применимо | Не применимо | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-04.09` | `UC-01` | `US-04` | `BR-SLOT-01`-`BR-SLOT-08` | `procedures`<br>`schedule_days`<br>`bookings` | `INT-01` | `SQ-01` | Не применимо | |
+| `FRQ-04.10` | `UC-01` | `US-04` | `BR-BOOKING-12` | `procedures` | `INT-01` | `SQ-01` | Не применимо | |
 
 #### FRQ-05. Создание записи
 
 |**Функциональное**<br>**требование**|**Use Case**|**User Story**|**Бизнес-правила**|**Сущности БД**|**Интеграционный**<br>**сценарий**|**Sequence-диаграмма**|**Нефункциональные**<br>**требования**|**Тест-кейсы**|
 |---|---|---|---|---|---|---|---|---|
 |`FRQ-05.01`|`UC-01`|`US-06`|`BR-BOOKING-01`|`bookings`<br>`users`<br>`contact_channels`<br>`procedures`<br>`schedule_days`|`INT-01`|`SQ-01`|`NFR-03.03`<br>`NFR-04.02`<br>`NFR-05.01`<br>`NFR-05.03`<br>`NFR-06.01`<br>`NFR-06.04`<br>`NFR-07.01`||
-|`FRQ-05.02`|`UC-01`|`US-06`|Не применимо|`bookings`<br>`users`<br>`procedures`<br>`schedule_days`|`INT-01`|`SQ-01`|`NFR-05.01`<br>`NFR-06.01`<br>`NFR-06.04`||
+| `FRQ-05.02` | `UC-01` | `US-06` | `BR-BOOKING-10` | `bookings`<br>`users`<br>`booking_procedures`<br>`procedures`<br>`schedule_days` | `INT-01` | `SQ-01` | `NFR-05.01`<br>`NFR-06.01`<br>`NFR-06.04` | |
 |`FRQ-05.03`|`UC-01`|`US-06`|`BR-BOOKING-04`|`bookings`|`INT-01`|`SQ-01`|`NFR-05.01`<br>`NFR-06.01`<br>`NFR-06.04`||
 |`FRQ-05.04`|`UC-01`|`US-06`|Не применимо|`bookings`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-05.05`|`UC-01`|`US-06`|`BR-BOOKING-04`<br>`BR-BOOKING-05`|`bookings`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-05.06`|`UC-01`<br>`UC-06`|`US-06`|`BR-NOTIFY-01`|`bookings`<br>`notifications`<br>`users`<br>`contact_channels`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-05.07`|`UC-01`|`US-06`|Не применимо|`bookings`|`INT-01`|`SQ-01`|`NFR-01.02`<br>`NFR-01.03`<br>`NFR-07.02`||
-|`FRQ-05.08`|`UC-01`|`US-06`|`BR-BOOKING-06`|`procedures`<br>`bookings`|`INT-01`|`SQ-01`|Не применимо||
+|`FRQ-05.08`|`UC-01`|`US-06`|`BR-BOOKING-06`|`procedures`<br>`booking_procedures`|`INT-01`|`SQ-01`|`NFR-05.01`||
 |`FRQ-05.09`|`UC-01`|`US-06`|`BR-USER-03`|`users`<br>`contact_channels`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-05.10`|`UC-01`|`US-06`|`BR-USER-02`-`BR-USER-04`|`users`<br>`contact_channels`<br>`bookings`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-05.11`|`UC-01`|`US-06`|`BR-BOOKING-02`-`BR-BOOKING-03`<br>`BR-SLOT-02`-`BR-SLOT-04`|`procedures`<br>`schedule_days`<br>`unavailable_periods`<br>`bookings`|`INT-01`|`SQ-01`|Не применимо||
 |`FRQ-05.12`|`UC-01`|`US-06`|`BR-BOOKING-02`-`BR-BOOKING-03`<br>`BR-SLOT-02`-`BR-SLOT-04`|`procedures`<br>`schedule_days`<br>`unavailable_periods`<br>`bookings`|`INT-01`|`SQ-01`|Не применимо||
+| `FRQ-05.13` | `UC-01` | `US-06` | `BR-BOOKING-10` | `bookings`<br>`booking_procedures` | `INT-01` | `SQ-01` | `NFR-05.01` | |
+| `FRQ-05.14` | `UC-01` | `US-06` | `BR-BOOKING-10`<br>`BR-BOOKING-11` | `bookings`<br>`booking_procedures`<br>`procedures` | `INT-01` | `SQ-01` | `NFR-05.01` | |
+| `FRQ-05.15` | `UC-01` | `US-06` | `BR-BOOKING-12`<br>`BR-SLOT-05` | `bookings`<br>`procedures` | `INT-01` | `SQ-01` | `NFR-05.01` | |
 
 ### 1.2. Авторизация косметолога
 
@@ -80,12 +93,12 @@
 |`FRQ-06.01`|`UC-02`|`US-08`|Не применимо|Не применимо|||Не применимо||
 |`FRQ-06.02`|`UC-02`|`US-08`|Не применимо|Не применимо|||`NFR-09.01`<br>`NFR-09.02`||
 |`FRQ-06.03`|`UC-02`|`US-08`|Не применимо|`users`|||`NFR-09.01`<br>`NFR-09.02`||
-|`FRQ-06.04`|`UC-02`|`US-08`|`BR-USER-06`|`users`|||`NFR-08.04`<br>`NFR-08.06`<br>`NFR-08.07`<br>`NFR-08.08`<br>`NFR-09.01`<br>`NFR-09.02`||
+|`FRQ-06.04`|`UC-02`|`US-08`|`BR-USER-06`|`users`|||`NFR-08.04`<br>`NFR-08.08`<br>`NFR-09.01`<br>`NFR-09.02`||
 |`FRQ-06.05`|`UC-02`|`US-08`|`BR-USER-06`|`users`|||`NFR-08.04`||
 |`FRQ-06.06`|`UC-02`|`US-08`|Не применимо|`users`|||`NFR-01.02`<br>`NFR-01.03`<br>`NFR-07.01`<br>`NFR-08.03`||
 |`FRQ-06.07`|`UC-02`|`US-08`|`BR-USER-08`|`users`|||Не применимо||
 |`FRQ-06.08`|`UC-02`|`US-08`|Не применимо|Не применимо|||`NFR-08.02`||
-|`FRQ-06.09`|`UC-02`|`US-08`|Не применимо|Не применимо|||`NFR-08.06`<br>`NFR-08.07`<br>`NFR-08.08`||
+|`FRQ-06.09`|`UC-02`|`US-08`|Не применимо|Не применимо|||`NFR-08.08`<br>`NFR-08.09`<br>`NFR-08.10`||
 |`FRQ-06.10`|`UC-02`|`US-08`|Не применимо|Не применимо|||Не применимо||
 
 ### 1.3. Управление профилем косметолога
@@ -143,7 +156,7 @@
 |`FRQ-10.01`|`UC-05`|Не применимо|Не применимо|`bookings`<br>`schedule_days`<br>`procedures`|||`NFR-08.01`<br>`NFR-08.05`||
 |`FRQ-10.02`|`UC-05`|Не применимо|Не применимо|`bookings`<br>`schedule_days`|||Не применимо||
 |`FRQ-10.03`|`UC-05`|Не применимо|Не применимо|`bookings`<br>`procedures`<br>`schedule_days`<br>`users`<br>`contact_channels`|||Не применимо||
-|`FRQ-10.04`|`UC-05`|Не применимо|Не применимо|`bookings`<br>`procedures`<br>`schedule_days`<br>`users`<br>`contact_channels`|||Не применимо||
+|`FRQ-10.04`|`UC-05`|Не применимо|Не применимо `bookings`<br>`booking_procedures`<br>`procedures`<br>`schedule_days`<br>`users`<br>`contact_channels`|||Не применимо||
 |`FRQ-10.05`|`UC-05`|Не применимо|`BR-CANCEL-05`|`bookings`|||Не применимо||
 |`FRQ-10.06`|`UC-05`|Не применимо|`BR-CANCEL-01`|`bookings`|||`NFR-04.02`<br>`NFR-05.02`<br>`NFR-07.01`||
 |`FRQ-10.07`|`UC-05`|Не применимо|Не применимо|`bookings`|||Не применимо||
@@ -187,7 +200,7 @@
 |**Функциональное**<br>**требование**|**Use Case**|**User Story**|**Бизнес-правила**|**Сущности БД**|**Интеграционный**<br>**сценарий**|**Sequence-диаграмма**|**Нефункциональные**<br>**требования**|**Тест-кейсы**|
 |---|---|---|---|---|---|---|---|---|
 |`FRQ-12.01`|`UC-07`|`US-12`|`BR-BOOKING-04`<br>`BR-BOOKING-05`|`bookings`|||`NFR-07.04`||
-|`FRQ-12.02`|`UC-07`|`US-12`|`BR-BOOKING-05`|`bookings`<br>`procedures`<br>`schedule_days`|||Не применимо||
+|`FRQ-12.02`|`UC-07`|`US-12`|`BR-BOOKING-05`|`bookings`<br>`booking_procedures`<br>`procedures`<br>`schedule_days`|||Не применимо||
 |`FRQ-12.03`|`UC-07`|`US-12`|`BR-BOOKING-05`<br>`BR-CANCEL-03`|`bookings`<br>`schedule_days`|||Не применимо||
 |`FRQ-12.04`|`UC-07`|`US-12`|`BR-CANCEL-01`|`bookings`|||`NFR-04.02`<br>`NFR-05.02`<br>`NFR-07.01`||
 |`FRQ-12.05`|`UC-07`|`US-12`|Не применимо|`bookings`|||Не применимо||
@@ -196,6 +209,7 @@
 |`FRQ-12.08`|`UC-07`|`US-12`|Не применимо|Не применимо|||Не применимо||
 |`FRQ-12.09`|`UC-07`|`US-12`|Не применимо|`bookings`|||Не применимо||
 |`FRQ-12.10`|`UC-01`<br>`UC-07`|`US-12`|`BR-CANCEL-02`<br>`BR-SLOT-01`-`BR-SLOT-08`|`bookings`<br>`schedule_days`<br>`unavailable_periods`<br>`procedures`|||Не применимо||
+|`FRQ-12.11`|`UC-07`|`US-12`|`BR-BOOKING-10`<br>`BR-CANCEL-01`|`bookings`<br>`booking_procedures`|||`NFR-05.02`||
 
 ### 1.9. Связь с косметологом
 
@@ -221,7 +235,7 @@
 |`NFR-03.03`|`UC-01`|`US-04`<br>`US-06`|`FRQ-04.01`<br>`FRQ-05.01`|`BR-BOOKING-01`||
 |`NFR-04.01`|`UC-01`|Не применимо|Не применимо|Не применимо||
 |`NFR-04.02`|`UC-01`<br>`UC-05`<br>`UC-06`<br>`UC-07`|Не применимо|`FRQ-05.01`<br>`FRQ-10.06`<br>`FRQ-10.16`<br>`FRQ-11.12`<br>`FRQ-12.04`|`BR-NOTIFY-06`||
-|`NFR-05.01`|`UC-01`|`US-06`|`FRQ-05.01`<br>`FRQ-05.02`<br>`FRQ-05.03`<br>`FRQ-05.08`<br>`FRQ-05.09`<br>`FRQ-05.10`|`BR-BOOKING-01`<br>`BR-BOOKING-04`<br>`BR-BOOKING-06`<br>`BR-USER-02`-`BR-USER-04`||
+|`NFR-05.01`|`UC-01`|`US-06`|`FRQ-05.01`<br>`FRQ-05.02`<br>`FRQ-05.03`<br>`FRQ-05.08`<br>`FRQ-05.09`<br>`FRQ-05.10`<br>`FRQ-05.13`<br>`FRQ-05.14`<br>`FRQ-05.15`|`BR-BOOKING-01`<br>`BR-BOOKING-04`<br>`BR-BOOKING-06`<br>`BR-BOOKING-10`<br>`BR-USER-02`-`BR-USER-04`||
 |`NFR-05.02`|`UC-05`<br>`UC-07`|`US-12`|`FRQ-10.06`<br>`FRQ-12.04`|`BR-CANCEL-01`||
 |`NFR-05.03`|`UC-01`|`US-06`|`FRQ-02.07`<br>`FRQ-05.01`<br>`FRQ-05.11`<br>`FRQ-05.12`|`BR-BOOKING-02`<br>`BR-BOOKING-03`<br>`BR-SLOT-02`-`BR-SLOT-04`||
 |`NFR-06.01`|Не применимо|Не применимо|`FRQ-05.01`<br>`FRQ-09.01`<br>`FRQ-10.06`<br>`FRQ-10.16`<br>`FRQ-12.04`|Не применимо||
@@ -244,10 +258,10 @@
 |`NFR-08.10`|`UC-02`|`US-08`|`FRQ-06.04`<br>`FRQ-06.09`|Не применимо||
 |`NFR-09.01`|`UC-02`|`US-08`|`FRQ-06.02`<br>`FRQ-06.03`<br>`FRQ-06.04`|Не применимо||
 |`NFR-09.02`|`UC-02`|`US-08`|`FRQ-06.03`<br>`FRQ-06.04`|Не применимо||
-|`NFR-10.01`|`UC-05`|Не применимо|`FRQ-10.03`<br>`FRQ-10.04`|`BR-USER-06`||
+|`NFR-10.01`|`UC-05`<br>`UC-07`|`US-12`|`FRQ-10.03`<br>`FRQ-10.04`<br>`FRQ-12.01`<br>`FRQ-12.02`|`BR-USER-06`||
 |`NFR-10.02`|`UC-01`<br>`UC-02`<br>`UC-07`|`US-05`<br>`US-08`<br>`US-12`|`FRQ-03.01`-`FRQ-03.08`<br>`FRQ-06.02`-`FRQ-06.05`<br>`FRQ-12.01`|Не применимо||
 |`NFR-10.03`|`UC-01`|`US-05`|`FRQ-03.01`-`FRQ-03.08`<br>`FRQ-05.09`<br>`FRQ-05.10`|`BR-USER-02`-`BR-USER-04`||
-|`NFR-11.01`|`UC-01`<br>`UC-07`|`US-01`-`US-07`<br>`US-12`|`FRQ-01.01`-`FRQ-05.12`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
-|`NFR-11.02`|`UC-01`<br>`UC-07`|`US-01`-`US-07`<br>`US-12`|`FRQ-01.01`-`FRQ-05.12`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
-|`NFR-11.03`|`UC-01`<br>`UC-07`|`US-01`-`US-07`<br>`US-12`|`FRQ-01.01`-`FRQ-05.12`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
+|`NFR-11.01`|`UC-01`<br>`UC-07`|`US-01`-`US-07`<br>`US-12`|`FRQ-01.01`-`FRQ-05.15`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
+|`NFR-11.02`|`UC-01`<br>`UC-07`|`US-01`-`US-07`<br>`US-12`|`FRQ-01.01`-`FRQ-05.15`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
+|`NFR-11.03`|`UC-01`<br>`UC-07`|`US-01`-`US-07`<br>`US-12`|`FRQ-01.01`-`FRQ-05.15`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
 |`NFR-11.04`|`UC-01`<br>`UC-02`<br>`UC-03`<br>`UC-04`<br>`UC-05`<br>`UC-07`|`US-01`-`US-12`|`FRQ-01.01`-`FRQ-10.19`<br>`FRQ-12.01`-`FRQ-13.05`|Не применимо||
